@@ -24,4 +24,14 @@ public class FilesServiceImpl implements FilesSevice {
 		return filesRepository.save(file);
 	}
 
+	@Override
+	public void delete(Files file) {
+		filesRepository.delete(file);
+	}
+
+	@Override
+	public Files findById(Integer id) {
+		return filesRepository.findById(id);
+	}
+
 }

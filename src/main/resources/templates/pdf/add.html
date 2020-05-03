@@ -17,22 +17,73 @@
 
 				<div class="form-group">
 					<label for="fileData">Pdf file</label> <input
-						th:field="*{fileData}" type="file" class="form-control-file">
-				</div>
+						th:field="*{fileData}" type="file" class="form-control-file" id="fileData">
 
-				<button type="button" class="btn btn-dark" onclick="save()">Upload</button>
+				</div>
+				<button type="button" class="btn btn-primary" onclick="previewPdf()">Preview</button>
+				<button type="button" class="btn btn-success" onclick="save()">Upload</button>
 
 			</form>
 		</div>
 		<!-- table pdf data -->
-		<div class="container" id="contenido">
-			<div th:fragment="fragmenTable"></div>
+		<div class="container" id="tableContent" style="margin-top: 20px">
+			<div th:fragment="fragmenTable">
+
+				<table class="table table-striped table-sm"
+					th:if="${!filesList.isEmpty()}">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Description</th>
+							<th scope="col">File name</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="f,iter : ${filesList}">
+							<th scope="row" th:text="${iter.index+1}"></th>
+							<td th:text="${f.description}"></td>
+							<td th:text="${f.fileName}"></td>
+							<td style="text-align: center">
+								<button th:onclick="'pdfFromServer('+${f.id}+')'" type="button"
+									class="btn btn-primary btn-sm">Preview</button>
+								<button th:onclick="'deleteFile('+${f.id}+')'" type="button"
+									class="btn btn-danger btn-sm">delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+		<!-- Modal to Visor PDF-->
+		<div class="modal fade" tabindex="-1" role="dialog" id="pdfViewModal">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Pdf content</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="pdf"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<!-- js para eventos -->
 	<div layout:fragment="my_js">
-		<script th:src="@{/js/pdf-eventos.js}"></script>
+		<script th:src="@{/js/file-eventos.js}"></script>
+		<script th:src="@{/js/visor-eventos.js}"></script>
 	</div>
 
 </body>
