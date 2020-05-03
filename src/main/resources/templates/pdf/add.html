@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/default}">
+<head>
+<title>Learn principal page</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container-sm">
+			<form id="form-file" th:object="${formFile}">
+
+				<div class="form-group">
+					<label for="description">Description</label> <input
+						th:field="*{files.description}" type="text" class="form-control"
+						id="description">
+				</div>
+
+				<div class="form-group">
+					<label for="fileData">Pdf file</label> <input
+						th:field="*{fileData}" type="file" class="form-control-file">
+				</div>
+
+				<button type="button" class="btn btn-dark" onclick="save()">Upload</button>
+
+			</form>
+		</div>
+		<!-- table pdf data -->
+		<div class="container" id="contenido">
+			<div th:fragment="fragmenTable"></div>
+		</div>
+	</div>
+
+	<!-- js para eventos -->
+	<div layout:fragment="my_js">
+		<script th:src="@{/js/pdf-eventos.js}"></script>
+	</div>
+
+</body>
+</html>
