@@ -25,10 +25,6 @@ public class PdfComponent {
 		model.put("filesList", filesList);
 	}
 
-	public void getFiles() {
-		System.out.println("TEST");
-	}
-
 	public void save(FormFile formFile) throws IOException {
 		MultipartFile inputFile = formFile.getFileData();
 		String fileName = inputFile.getOriginalFilename();
